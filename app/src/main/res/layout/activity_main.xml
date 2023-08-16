@@ -23,15 +23,16 @@
             android:background="@color/purple_500"
             android:visibility="gone"/>
 
-        <androidx.appcompat.widget.LinearLayoutCompat
+        <LinearLayout
             android:layout_width="200dp"
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="20dp"
             android:layout_toRightOf="@+id/btn_profile">
 
-            <androidx.appcompat.widget.LinearLayoutCompat
+            <LinearLayout
                 android:id="@+id/linearLayout_location_and_weather"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
@@ -39,33 +40,56 @@
 
                 <ImageView
                     android:id="@+id/img_location"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:layout_marginRight="10dp"
-                    android:background="@color/purple_200"/>
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginTop="3dp"
+                    android:background="@mipmap/icon_location"/>
 
                 <TextView
                     android:id="@+id/tv_current_location"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginRight="10dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:textSize="17dp"
+                    android:textColor="@color/black"
                     android:text="Los Angeles"/>
 
                 <TextView
                     android:id="@+id/tv_current_weather"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:textSize="17dp"
+                    android:textColor="@color/black"
                     android:text="25도"/>
 
-            </androidx.appcompat.widget.LinearLayoutCompat>
+            </LinearLayout>
 
-            <TextView
-                android:id="@+id/tv_exchange_rate"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="1330원"/>
+            <LinearLayout
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="5dp">
 
-        </androidx.appcompat.widget.LinearLayoutCompat>
+                <ImageView
+                    android:id="@+id/img_dollar"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginTop="3dp"
+                    android:background="@mipmap/icon_dollar"/>
+
+                <TextView
+                    android:id="@+id/tv_exchange_rate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:textSize="17dp"
+                    android:textColor="@color/black"
+                    android:text="현재 환율 : 1330원"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
 
         <ImageButton
             android:id="@+id/btn_settings"
