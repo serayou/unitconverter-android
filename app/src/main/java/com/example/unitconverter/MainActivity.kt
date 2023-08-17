@@ -7,6 +7,7 @@ import android.location.Geocoder
 import android.location.Location
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
@@ -160,23 +161,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun getLocalityAddress(location : Location?) : String?{
-        var localityAddress : String? = null
-
-        if(location != null){
-            var resultAddressList: List<Address>? = null
-            try{
-                resultAddressList = Geocoder(this, Locale.US).getFromLocation(
-                    location.latitude, location.longitude, 1
-                )
-            }catch(e: IOException){
-                e.printStackTrace()
+        return try {
+            Geocoder(this, Locale.US).getFromLocation(location!!.latitude, location!!.longitude, 1)!!.first().run {
+                locality
             }
-
-            if(resultAddressList != null){
-                localityAddress = resultAddressList[0].locality
-            }
+        } catch (e: Exception){
+            e.printStackTrace()
+            null
         }
-
-        return localityAddress
     }
 }
