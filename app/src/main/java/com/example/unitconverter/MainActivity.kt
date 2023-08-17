@@ -1,14 +1,36 @@
 package com.example.unitconverter
 
+import android.Manifest
+import android.content.pm.PackageManager
+import android.location.Address
+import android.location.Geocoder
+import android.location.Location
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.TextView
+import android.widget.Toast
+import androidx.core.app.ActivityCompat
 import androidx.viewpager.widget.ViewPager
+import com.google.android.gms.location.*
+import com.google.android.gms.tasks.CancellationToken
+import com.google.android.gms.tasks.CancellationTokenSource
+import com.google.android.gms.tasks.OnTokenCanceledListener
 import com.google.android.material.tabs.TabLayout
+import java.io.IOException
+import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
-    var tabLayout : TabLayout? = null
-    var viewPager : ViewPager? = null
+    companion object {
+        const val LOCATION_PERMISSION_REQUEST_CODE = 1001
+    }
+
+    private var fusedLocationClient :FusedLocationProviderClient? = null
+
+    private var tabLayout : TabLayout? = null
+    private var viewPager : ViewPager? = null
+    private var tvCurrentLocation : TextView? = null
+    private var tvCurrentTemperature : TextView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -16,11 +38,19 @@ class MainActivity : AppCompatActivity() {
 
         initResource()
         setTab()
+
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+
+        if(checkPermission()){
+            requestCurrentLocation()
+        }
     }
 
     private fun initResource(){
         tabLayout = findViewById(R.id.tabLayout)
         viewPager = findViewById(R.id.viewPager)
+        tvCurrentLocation = findViewById(R.id.tv_current_location)
+        tvCurrentTemperature = findViewById(R.id.tv_current_temperature)
     }
 
     private fun setTab(){
@@ -44,5 +74,109 @@ class MainActivity : AppCompatActivity() {
 
             }
         })
+    }
+
+    private fun checkPermission() : Boolean{
+        val fineLocationPermission = this.checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION)
+        val coarseLocationPermission = this.checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION)
+
+        return if(fineLocationPermission != PackageManager.PERMISSION_GRANTED ||
+            coarseLocationPermission != PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(
+                this,
+                arrayOf(
+                    Manifest.permission.ACCESS_FINE_LOCATION,
+                    Manifest.permission.ACCESS_COARSE_LOCATION),
+                LOCATION_PERMISSION_REQUEST_CODE)
+            false
+        }else{
+            true
+        }
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == LOCATION_PERMISSION_REQUEST_CODE) {
+            if (grantResults.isNotEmpty() &&
+                grantResults[0] == PackageManager.PERMISSION_GRANTED &&
+                grantResults[1] == PackageManager.PERMISSION_GRANTED) {
+                requestCurrentLocation()
+            } else {
+                Toast.makeText(this, "위치 권한을 허용해 주세요.", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    private fun requestCurrentLocation(){
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+            && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            return
+        }
+
+        fusedLocationClient?.getCurrentLocation(LocationRequest.PRIORITY_HIGH_ACCURACY, object : CancellationToken(){
+            override fun isCancellationRequested(): Boolean {
+                return false
+            }
+
+            override fun onCanceledRequested(p0: OnTokenCanceledListener): CancellationToken {
+                return CancellationTokenSource().token
+            }
+        })?.addOnSuccessListener { location : Location? ->
+            location?.let { location ->
+                tvCurrentLocation?.text = getLocalityAddress(location)
+            }
+        }
+    }
+
+    //위치 정보를 정기 업데이트
+    private fun requestLocationUpdate(){
+        val locationRequest = LocationRequest.create().apply {
+            interval = 10000
+            fastestInterval = 5000
+            priority = LocationRequest.PRIORITY_HIGH_ACCURACY
+        }
+
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+            && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            return
+        }
+
+        fusedLocationClient?.requestLocationUpdates(
+            locationRequest,
+            object : LocationCallback() {
+                override fun onLocationResult(locationResult: LocationResult?) {
+                    locationResult?.lastLocation?.let { location ->
+                        val latitude = location.latitude
+                        val longitude = location.longitude
+                    }
+                }
+            },
+            null
+        )
+    }
+
+    private fun getLocalityAddress(location : Location?) : String?{
+        var localityAddress : String? = null
+
+        if(location != null){
+            var resultAddressList: List<Address>? = null
+            try{
+                resultAddressList = Geocoder(this, Locale.US).getFromLocation(
+                    location.latitude, location.longitude, 1
+                )
+            }catch(e: IOException){
+                e.printStackTrace()
+            }
+
+            if(resultAddressList != null){
+                localityAddress = resultAddressList[0].locality
+            }
+        }
+
+        return localityAddress
     }
 }

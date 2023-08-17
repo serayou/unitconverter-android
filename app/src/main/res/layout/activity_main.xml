@@ -51,11 +51,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
                     android:textSize="17dp"
-                    android:textColor="@color/black"
-                    android:text="Los Angeles"/>
+                    android:textColor="@color/black"/>
 
                 <TextView
-                    android:id="@+id/tv_current_weather"
+                    android:id="@+id/tv_current_temperature"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
