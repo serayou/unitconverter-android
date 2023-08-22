@@ -7,6 +7,7 @@ import android.location.Location
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
@@ -37,6 +38,7 @@ class MainActivity : AppCompatActivity() {
     private var tvCurrentLocation : TextView? = null
     private var tvCurrentTemperature : TextView? = null
     private var tvCurrentExchangeRate : TextView? = null
+    private var btnRefreshCurrentExchangeRate : ImageButton? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,6 +61,10 @@ class MainActivity : AppCompatActivity() {
         tvCurrentLocation = findViewById(R.id.tv_current_location)
         tvCurrentTemperature = findViewById(R.id.tv_current_temperature)
         tvCurrentExchangeRate = findViewById(R.id.tv_exchange_rate)
+        btnRefreshCurrentExchangeRate = findViewById(R.id.btn_refresh_exchange_rate)
+        btnRefreshCurrentExchangeRate?.setOnClickListener {
+            requestCurrentExchangeRate()
+        }
     }
 
     private fun setTab(){

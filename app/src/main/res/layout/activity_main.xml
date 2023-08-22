@@ -92,6 +92,14 @@
                     android:textSize="17dp"
                     android:textColor="@color/black"/>
 
+                <ImageButton
+                    android:id="@+id/btn_refresh_exchange_rate"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginLeft="5dp"
+                    android:background="@mipmap/icon_refresh"/>
+
             </LinearLayout>
 
         </LinearLayout>
