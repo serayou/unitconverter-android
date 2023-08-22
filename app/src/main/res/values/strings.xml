@@ -6,4 +6,10 @@
     <string name="current_exchange_rate">현재 환율 : </string>
     <string name="currency_name_won">원</string>
     <string name="currency_name_dollar">달러</string>
+    <string name="add_tip">팁 추가</string>
+    <string name="tip_15_percent">15%</string>
+    <string name="tip_18_percent">18%</string>
+    <string name="tip_20_percent">20%</string>
+    <string name="tip_custom">CUSTOM(직접 입력)</string>
+    <string name="total">합계 : </string>
 </resources>
