@@ -3,4 +3,7 @@
     <string name="unit_converter">Unit 변환기</string>
     <string name="tip_calculator">Tip 계산기</string>
     <string name="exchange_rate">환율</string>
+    <string name="current_exchange_rate">현재 환율 : </string>
+    <string name="currency_name_won">원</string>
+    <string name="currency_name_dollar">달러</string>
 </resources>

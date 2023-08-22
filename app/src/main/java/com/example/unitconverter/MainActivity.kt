@@ -2,7 +2,6 @@ package com.example.unitconverter
 
 import android.Manifest
 import android.content.pm.PackageManager
-import android.location.Address
 import android.location.Geocoder
 import android.location.Location
 import androidx.appcompat.app.AppCompatActivity
@@ -12,12 +11,17 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.viewpager.widget.ViewPager
+import com.example.unitconverter.api.ExchangeRateApi
+import com.example.unitconverter.api.data.ExchangeRateData
+import com.example.unitconverter.utils.Constants
 import com.google.android.gms.location.*
 import com.google.android.gms.tasks.CancellationToken
 import com.google.android.gms.tasks.CancellationTokenSource
 import com.google.android.gms.tasks.OnTokenCanceledListener
 import com.google.android.material.tabs.TabLayout
-import java.io.IOException
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
@@ -32,6 +36,7 @@ class MainActivity : AppCompatActivity() {
     private var viewPager : ViewPager? = null
     private var tvCurrentLocation : TextView? = null
     private var tvCurrentTemperature : TextView? = null
+    private var tvCurrentExchangeRate : TextView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,6 +50,7 @@ class MainActivity : AppCompatActivity() {
         if(checkPermission()){
             requestCurrentLocation()
         }
+        requestCurrentExchangeRate()
     }
 
     private fun initResource(){
@@ -52,6 +58,7 @@ class MainActivity : AppCompatActivity() {
         viewPager = findViewById(R.id.viewPager)
         tvCurrentLocation = findViewById(R.id.tv_current_location)
         tvCurrentTemperature = findViewById(R.id.tv_current_temperature)
+        tvCurrentExchangeRate = findViewById(R.id.tv_exchange_rate)
     }
 
     private fun setTab(){
@@ -169,5 +176,24 @@ class MainActivity : AppCompatActivity() {
             e.printStackTrace()
             null
         }
+    }
+
+    private fun requestCurrentExchangeRate(){
+        tvCurrentExchangeRate?.text = null
+
+        val exchangeRateApi = ExchangeRateApi.create()
+        exchangeRateApi.getExchangeRate(Constants.EXCHANGE_RATE_API_KEY, "KRW").enqueue(object : Callback<ExchangeRateData>{
+            override fun onResponse(
+                call: Call<ExchangeRateData>,
+                response: Response<ExchangeRateData>
+            ) {
+                val exchangeRateResponse = response.body()
+                tvCurrentExchangeRate?.text = (exchangeRateResponse?.rates?.KRW ?: 0.0).toInt().toString() + " " + getString(R.string.currency_name_won)
+            }
+
+            override fun onFailure(call: Call<ExchangeRateData>, t: Throwable) {
+                call.cancel()
+            }
+        })
     }
 }
