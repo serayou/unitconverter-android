@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.unitconverter.databinding.TipCalculatorFragmentBinding
 
@@ -40,25 +41,50 @@ class TipCalculatorFragment : Fragment() {
     private fun setResource() {
         binding.etTotal.setOnEditorActionListener { textView, action, keyEvent ->
             if(action == EditorInfo.IME_ACTION_DONE){
-                totalDollar = binding.etTotal.text.toString().toDouble()
-                calculateTipPercent()
+                if(binding.etTotal.text.toString().isNotEmpty()){
+                    totalDollar = binding.etTotal.text.toString().toDouble()
+                    calculateTipPercent()
+                }
                 true
             }
             false
         }
 
         binding.btnCheck.setOnClickListener{
-            totalDollar = binding.etTotal.text.toString().toDouble()
-            calculateTipPercent()
             hideKeyboard()
+            if(binding.etTotal.text.toString().isNotEmpty()){
+                totalDollar = binding.etTotal.text.toString().toDouble()
+                calculateTipPercent()
+            }
+        }
 
+        binding.layoutBtnTip15.setOnClickListener {
+            addTip(binding.tvTip15Dollar.text.toString())
+        }
+
+        binding.layoutBtnTip18.setOnClickListener {
+            addTip(binding.tvTip18Dollar.text.toString())
+        }
+
+        binding.layoutBtnTip20.setOnClickListener {
+            addTip(binding.tvTip20Dollar.text.toString())
         }
     }
 
     private fun calculateTipPercent(){
+        binding.tvTotalWithTip.text = null
+
         binding.tvTip15Dollar.text = String.format("%.2f", totalDollar?.times(0.15))
         binding.tvTip18Dollar.text = String.format("%.2f", totalDollar?.times(0.18))
         binding.tvTip20Dollar.text = String.format("%.2f", totalDollar?.times(0.2))
+    }
+
+    private fun addTip(tip : String){
+        tip.takeIf { it.isNotEmpty() }
+            ?.toDoubleOrNull()
+            ?.let { tipAmount ->
+                binding.tvTotalWithTip.text = totalDollar?.plus(tipAmount).toString()
+            } ?: Toast.makeText(mainActivity, "값을 입력해 주세요.", Toast.LENGTH_SHORT).show()
     }
 
     private fun hideKeyboard(){

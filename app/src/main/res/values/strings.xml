@@ -11,5 +11,5 @@
     <string name="tip_18_percent">18%</string>
     <string name="tip_20_percent">20%</string>
     <string name="tip_custom">CUSTOM(직접 입력)</string>
-    <string name="total">합계 : </string>
+    <string name="total">합계</string>
 </resources>

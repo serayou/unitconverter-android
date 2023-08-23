@@ -64,6 +64,7 @@
             app:layout_constraintEnd_toStartOf="@id/layout_btn_tip_18"
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginTop="30dp"
+            android:clickable="true"
             android:background="@color/purple_200">
 
             <TextView
@@ -93,6 +94,7 @@
             app:layout_constraintEnd_toStartOf="@id/layout_btn_tip_20"
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginTop="30dp"
+            android:clickable="true"
             android:background="@color/purple_200">
 
             <TextView
@@ -122,6 +124,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginTop="30dp"
+            android:clickable="true"
             android:background="@color/purple_200">
 
             <TextView
@@ -200,7 +203,10 @@
         <TextView
             android:id="@+id/tv_total_with_tip"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            android:textSize="30dp"
+            android:textColor="@color/black"
+            android:textStyle="bold"/>
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
