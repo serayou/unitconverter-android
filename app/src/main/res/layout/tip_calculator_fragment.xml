@@ -23,6 +23,7 @@
             android:id="@+id/et_total"
             android:layout_width="170dp"
             android:layout_height="wrap_content"
+            android:imeOptions="actionDone"
             android:inputType="numberDecimal"/>
 
         <ImageButton
