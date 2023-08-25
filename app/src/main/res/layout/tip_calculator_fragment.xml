@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
@@ -163,12 +164,109 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layout_select_custom_tip"
         android:layout_width="350dp"
-        android:layout_height="300dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_add_tip"
+        android:layout_height="200dp"
         android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_add_tip"
         android:visibility="gone">
+
+        <Button
+            android:id="@+id/btn_back_to_select_tip"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/purple_200"
+            android:text="&lt;"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/image_custom_tip_top_dollar"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@mipmap/icon_dollar"
+            app:layout_constraintBottom_toBottomOf="@+id/et_top_custom_tip"
+            app:layout_constraintEnd_toStartOf="@id/guideline"
+            app:layout_constraintTop_toTopOf="@+id/et_top_custom_tip"
+            android:visibility="visible"/>
+
+        <EditText
+            android:id="@+id/et_top_custom_tip"
+            android:layout_width="130dp"
+            android:layout_height="wrap_content"
+            android:imeOptions="actionDone"
+            android:inputType="numberDecimal"
+            app:layout_constraintBottom_toTopOf="@id/image_arrow_down"
+            app:layout_constraintEnd_toEndOf="@+id/image_arrow_down"
+            app:layout_constraintStart_toStartOf="@+id/image_arrow_down"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/image_custom_tip_top_percent"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@mipmap/icon_check"
+            app:layout_constraintBottom_toBottomOf="@+id/et_top_custom_tip"
+            app:layout_constraintStart_toEndOf="@id/et_top_custom_tip"
+            app:layout_constraintTop_toTopOf="@+id/et_top_custom_tip"
+            android:visibility="gone"/>
+
+        <ImageView
+            android:id="@+id/image_arrow_down"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@mipmap/icon_arrow_down"
+            app:layout_constraintBottom_toTopOf="@id/tv_bottom_custom_tip"
+            app:layout_constraintEnd_toEndOf="@+id/tv_bottom_custom_tip"
+            app:layout_constraintStart_toStartOf="@+id/tv_bottom_custom_tip"
+            app:layout_constraintTop_toBottomOf="@id/et_top_custom_tip" />
+
+        <ImageView
+            android:id="@+id/image_custom_tip_bottom_dollar"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@mipmap/icon_dollar"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_bottom_custom_tip"
+            app:layout_constraintEnd_toStartOf="@id/tv_bottom_custom_tip"
+            app:layout_constraintTop_toTopOf="@+id/tv_bottom_custom_tip"
+            android:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/tv_bottom_custom_tip"
+            android:layout_width="130dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/guideline"
+            app:layout_constraintTop_toBottomOf="@id/image_arrow_down" />
+
+        <ImageView
+            android:id="@+id/image_custom_tip_bottom_percent"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@mipmap/icon_check"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_bottom_custom_tip"
+            app:layout_constraintStart_toEndOf="@id/tv_bottom_custom_tip"
+            app:layout_constraintTop_toTopOf="@+id/tv_bottom_custom_tip"
+            android:visibility="visible"/>
+
+        <ImageButton
+            android:id="@+id/btn_switch"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginRight="40dp"
+            android:background="@mipmap/icon_switch"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="110dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
