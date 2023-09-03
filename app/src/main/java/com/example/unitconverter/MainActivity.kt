@@ -40,6 +40,8 @@ class MainActivity : AppCompatActivity() {
     private var tvCurrentExchangeRate : TextView? = null
     private var btnRefreshCurrentExchangeRate : ImageButton? = null
 
+    var currentCurrencyRate : String? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -78,6 +80,12 @@ class MainActivity : AppCompatActivity() {
         tabLayout!!.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener{
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 viewPager!!.currentItem = tab!!.position
+                if(tab!!.position == 1){
+                    //계산기 초기화
+                    //개발 편의를 위해 임시로 여기서 실행
+                    val fragment = supportFragmentManager.findFragmentById(R.id.viewPager) as? TipCalculatorFragment
+                    fragment?.resetCalculator()
+                }
             }
 
             override fun onTabUnselected(tab: TabLayout.Tab?) {
@@ -194,7 +202,8 @@ class MainActivity : AppCompatActivity() {
                 response: Response<ExchangeRateData>
             ) {
                 val exchangeRateResponse = response.body()
-                tvCurrentExchangeRate?.text = (exchangeRateResponse?.rates?.KRW ?: 0.0).toInt().toString() + " " + getString(R.string.currency_name_won)
+                currentCurrencyRate = (exchangeRateResponse?.rates?.KRW ?: 0.0).toInt().toString()
+                tvCurrentExchangeRate?.text = currentCurrencyRate + " " + getString(R.string.currency_name_won)
             }
 
             override fun onFailure(call: Call<ExchangeRateData>, t: Throwable) {
