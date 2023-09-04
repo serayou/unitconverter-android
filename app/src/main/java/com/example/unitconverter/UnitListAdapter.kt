@@ -23,14 +23,19 @@ class UnitListAdapter(private val items : ArrayList<UnitListData>, private var l
     }
 
     override fun onBindViewHolder(holder: UnitListContentHolder, position: Int) {
+        var hasLeftInputFocus = false
+        var hasRightInputFocus = false
+
         holder.unitConverterListName.text = items[position].listName
         holder.leftUnitName.text = items[position].leftUnitText
         holder.rightUnitName.text = items[position].rightUnitText
 
         holder.unitConverterLeftInput.setOnFocusChangeListener { view, hasFocus ->
-            if(hasFocus){
-                holder.unitConverterRightInput.text = null
-            }
+            hasLeftInputFocus = hasFocus
+        }
+
+        holder.unitConverterRightInput.setOnFocusChangeListener { view, hasFocus ->
+            hasRightInputFocus = hasFocus
         }
 
         holder.unitConverterLeftInput.addTextChangedListener(object : TextWatcher {
@@ -40,6 +45,7 @@ class UnitListAdapter(private val items : ArrayList<UnitListData>, private var l
             }
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, count: Int) {
+                if(hasRightInputFocus) return
                 if(count == 0){
                     holder.unitConverterRightInput.text = null
                 }
@@ -52,6 +58,27 @@ class UnitListAdapter(private val items : ArrayList<UnitListData>, private var l
             override fun afterTextChanged(p0: Editable?) {
             }
        })
+
+        holder.unitConverterRightInput.addTextChangedListener(object : TextWatcher {
+            var result : String? = null
+
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, count: Int) {
+                if(hasLeftInputFocus) return
+                if(count == 0){
+                    holder.unitConverterLeftInput.text = null
+                }
+                if(calculateListener != null){
+                    result = calculateListener?.onCalculateUnit(holder.unitConverterListName.text.toString(), false, holder.unitConverterRightInput.text.toString())
+                }
+                holder.unitConverterLeftInput.setText(result)
+            }
+
+            override fun afterTextChanged(p0: Editable?) {
+            }
+        })
     }
 
     override fun getItemCount(): Int {
