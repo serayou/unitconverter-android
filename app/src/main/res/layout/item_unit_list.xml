@@ -29,7 +29,8 @@
                 android:layout_width="90dp"
                 android:layout_height="wrap_content"
                 android:maxLines="1"
-                android:inputType="numberDecimal"/>
+                android:inputType="numberDecimal"
+                android:imeOptions="actionDone"/>
 
             <TextView
                 android:id="@+id/tv_converter_left_unit_text"
@@ -47,7 +48,8 @@
                 android:layout_width="90dp"
                 android:layout_height="wrap_content"
                 android:maxLines="1"
-                android:inputType="numberDecimal"/>
+                android:inputType="numberDecimal"
+                android:imeOptions="actionDone"/>
 
             <TextView
                 android:id="@+id/tv_converter_right_unit_text"
