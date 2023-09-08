@@ -7,17 +7,24 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.unitconverter.databinding.ItemUnitListBinding
+import java.util.*
+import kotlin.collections.ArrayList
 
-class UnitListAdapter(private val items : ArrayList<UnitListData>, private var listener : OnCalculateListener) : RecyclerView.Adapter<UnitListAdapter.UnitListContentHolder>(){
+class UnitListAdapter(
+    private val items : ArrayList<UnitListData>,
+    private var calculateListener : OnCalculateListener,
+    private var dragListener : OnDragListener
+) : RecyclerView.Adapter<UnitListAdapter.UnitListContentHolder>(), UnitListItemTouchHelperCallback.OnItemMoveListener{
 
     interface OnCalculateListener{
         fun onCalculateUnit(type : String, calculateDirection : Boolean, input: String) : String?
     }
 
-    private var calculateListener : OnCalculateListener? = null
+    interface OnDragListener{
+        fun onStartDrag(viewHolder: UnitListContentHolder)
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UnitListContentHolder {
-        calculateListener = listener
         val binding = ItemUnitListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return UnitListContentHolder(binding)
     }
@@ -79,10 +86,24 @@ class UnitListAdapter(private val items : ArrayList<UnitListData>, private var l
             override fun afterTextChanged(p0: Editable?) {
             }
         })
+
+        holder.dragAvailableBtn.setOnClickListener {
+            if(dragListener != null){
+                dragListener?.onStartDrag(holder)
+            }
+        }
     }
 
     override fun getItemCount(): Int {
         return items.size
+    }
+
+    override fun onItemMove(fromPosition: Int, toPosition: Int) {
+        Collections.swap(items, fromPosition, toPosition)
+        notifyItemMoved(fromPosition, toPosition)
+    }
+
+    override fun onFinishItemMove() {
     }
 
     inner class UnitListContentHolder(private val binding: ItemUnitListBinding) : RecyclerView.ViewHolder(binding.root) {

@@ -2,20 +2,22 @@ package com.example.unitconverter
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.unitconverter.databinding.UnitConverterFragmentBinding
 
-class UnitConverterFragment : Fragment(), UnitListAdapter.OnCalculateListener {
+class UnitConverterFragment : Fragment(), UnitListAdapter.OnCalculateListener, UnitListAdapter.OnDragListener {
 
     private lateinit var binding: UnitConverterFragmentBinding
     private lateinit var mainActivity: MainActivity
-
     private lateinit var unitList : ArrayList<UnitListData>
+    private lateinit var itemTouchHelper: ItemTouchHelper
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -45,8 +47,16 @@ class UnitConverterFragment : Fragment(), UnitListAdapter.OnCalculateListener {
         unitList.add(UnitListData(getString(R.string.length), "inch", "cm"))
 
         binding.unitConverterListView.layoutManager = LinearLayoutManager(mainActivity, RecyclerView.VERTICAL, false)
-        val unitListAdapter = UnitListAdapter(unitList, this)
+        val unitListAdapter = UnitListAdapter(unitList, this, this)
         binding.unitConverterListView.adapter = unitListAdapter
+
+        val callback = UnitListItemTouchHelperCallback(unitListAdapter)
+        itemTouchHelper = ItemTouchHelper(callback)
+        itemTouchHelper.attachToRecyclerView(binding.unitConverterListView)
+    }
+
+    override fun onStartDrag(viewHolder: UnitListAdapter.UnitListContentHolder) {
+        itemTouchHelper.startDrag(viewHolder)
     }
 
     override fun onCalculateUnit(type: String, calculateDirection: Boolean, input: String) : String? {
