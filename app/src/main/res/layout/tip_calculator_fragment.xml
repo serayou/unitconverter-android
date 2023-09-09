@@ -173,14 +173,13 @@
         app:layout_constraintTop_toBottomOf="@id/tv_add_tip"
         android:visibility="gone">
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_back_to_select_tip"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="10dp"
-            android:background="@color/purple_200"
-            android:text="&lt;"
+            android:background="@mipmap/icon_back"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
