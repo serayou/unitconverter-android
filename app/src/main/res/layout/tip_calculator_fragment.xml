@@ -195,10 +195,12 @@
 
         <EditText
             android:id="@+id/et_top_custom_tip"
-            android:layout_width="130dp"
+            android:layout_width="120dp"
             android:layout_height="wrap_content"
             android:imeOptions="actionDone"
             android:inputType="numberDecimal"
+            android:textColor="@color/black"
+            android:textSize="18dp"
             app:layout_constraintBottom_toTopOf="@id/image_arrow_down"
             app:layout_constraintEnd_toEndOf="@+id/image_arrow_down"
             app:layout_constraintStart_toStartOf="@+id/image_arrow_down"
@@ -206,9 +208,9 @@
 
         <ImageView
             android:id="@+id/image_custom_tip_top_percent"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:background="@mipmap/icon_check"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:background="@mipmap/icon_percent"
             app:layout_constraintBottom_toBottomOf="@+id/et_top_custom_tip"
             app:layout_constraintStart_toEndOf="@id/et_top_custom_tip"
             app:layout_constraintTop_toTopOf="@+id/et_top_custom_tip"
@@ -236,17 +238,19 @@
 
         <TextView
             android:id="@+id/tv_bottom_custom_tip"
-            android:layout_width="130dp"
+            android:layout_width="120dp"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@+id/guideline"
-            app:layout_constraintTop_toBottomOf="@id/image_arrow_down" />
+            app:layout_constraintTop_toBottomOf="@id/image_arrow_down"
+            android:textColor="@color/black"
+            android:textSize="18dp"/>
 
         <ImageView
             android:id="@+id/image_custom_tip_bottom_percent"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:background="@mipmap/icon_check"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:background="@mipmap/icon_percent"
             app:layout_constraintBottom_toBottomOf="@+id/tv_bottom_custom_tip"
             app:layout_constraintStart_toEndOf="@id/tv_bottom_custom_tip"
             app:layout_constraintTop_toTopOf="@+id/tv_bottom_custom_tip"
@@ -254,9 +258,9 @@
 
         <ImageButton
             android:id="@+id/btn_switch"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginRight="40dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginRight="50dp"
             android:background="@mipmap/icon_switch"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
