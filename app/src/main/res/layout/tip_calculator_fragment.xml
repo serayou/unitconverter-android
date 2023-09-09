@@ -28,10 +28,12 @@
             android:inputType="numberDecimal"/>
 
         <ImageButton
-            android:id="@+id/btn_check"
-            android:layout_width="40dp"
-            android:layout_height="match_parent"
-            android:background="@mipmap/icon_check"/>
+            android:id="@+id/btn_remove_all_text"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_gravity="center_vertical"
+            android:background="@mipmap/icon_cancel_circle"
+            android:visibility="gone" />
     </LinearLayout>
 
     <TextView
