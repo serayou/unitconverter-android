@@ -81,8 +81,6 @@ class MainActivity : AppCompatActivity() {
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 viewPager!!.currentItem = tab!!.position
                 if(tab!!.position == 1){
-                    //계산기 초기화
-                    //개발 편의를 위해 임시로 여기서 실행
                     val fragment = supportFragmentManager.findFragmentById(R.id.viewPager) as? TipCalculatorFragment
                     fragment?.resetCalculator()
                 }
