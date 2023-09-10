@@ -72,7 +72,7 @@ class TipCalculatorFragment : Fragment() {
 
         binding.btnRemoveAllText.setOnClickListener{
             if(binding.etTotal.text.toString().isNotEmpty()){
-                binding.etTotal.text = null
+                clearCalculator()
             }
         }
 
@@ -210,6 +210,20 @@ class TipCalculatorFragment : Fragment() {
         binding.tvTip20Dollar.text = null
 
         totalDollar = 0.0
-        customInputType = "dollar"
+        initCustomTip()
+    }
+
+    private fun clearCalculator(){
+        binding.etTotal.text = null
+        binding.tvTotalWithTip.text = null
+
+        binding.tvTip15Dollar.text = null
+        binding.tvTip18Dollar.text = null
+        binding.tvTip20Dollar.text = null
+
+        binding.etTopCustomTip.text = null
+        binding.tvBottomCustomTip.text = null
+
+        totalDollar = 0.0
     }
 }
