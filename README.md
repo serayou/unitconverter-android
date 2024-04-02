@@ -11,7 +11,13 @@
   
 ## 주요 기능
 #### 1. UNIT 변환기 화면
-<img src="https://github.com/serayou/unitconverter-android/assets/51695780/c19216a3-1e04-452a-865c-2c06cb0570e4.png" width="350" height="640"/>
+<img src="https://github.com/serayou/unitconverter-android/assets/51695780/c19216a3-1e04-452a-865c-2c06cb0570e4.png" width="360" height="640"/>
+
+- 현재 위치 표시
+- 현재 환율 표시 및 새로고침
+- unit 변환, 리스트 순서 변경
 
 #### 2. TIP 계산기 화면
 <img src="https://github.com/serayou/unitconverter-android/assets/51695780/6891d061-aaa0-45db-bf05-f947837ca303.png" width="360" height="640"/>
+
+- 달러 입력 후 팁 계산
