@@ -7,7 +7,7 @@
 2023.08.15 ~ 2023.09.10
 
 ## 기술 스택
-Android Studio, Kotlin, Java, Retrofit, Git
+Android Studio, Kotlin, Java, XML, Retrofit, Git
 
 #### 오픈 API 출처
 open exchage rates : https://openexchangerates.org/
