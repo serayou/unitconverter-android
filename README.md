@@ -6,9 +6,12 @@
 ## 개발 기간
 2023.08.15 ~ 2023.09.10
 
-## 개발 환경
+## 기술 스택
+Android Studio, Kotlin, Java, Retrofit, Git
 
-  
+#### 오픈 API 출처
+open exchage rates : https://openexchangerates.org/
+
 ## 주요 기능
 #### 1. UNIT 변환기 화면
 <img src="https://github.com/serayou/unitconverter-android/assets/51695780/c19216a3-1e04-452a-865c-2c06cb0570e4.png" width="360" height="640"/>
